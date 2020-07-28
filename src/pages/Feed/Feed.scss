@@ -1,0 +1,20 @@
+.rdr-feed {
+  display: block;
+  min-height: 100%;
+  margin: 0;
+}
+
+.rdr-feed-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  min-height: 100%;
+  height: fit-content;
+  margin: 0 auto;
+
+  z-index: 1;
+}
+
+#rdr-feed-up-btn > div {
+  z-index: 5;
+}

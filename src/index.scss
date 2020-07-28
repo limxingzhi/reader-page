@@ -1,0 +1,38 @@
+body {
+  --rdr-typography: Roboto, sans-serif;
+
+  --rdr-spacing-xs: 2px;
+  --rdr-spacing-s: 4px;
+  --rdr-spacing-m: 8px;
+  --rdr-spacing-l: 16px;
+  --rdr-spacing-xl: 32px;
+
+  --rdr-typo-size-xs: 10px;
+  --rdr-typo-size-s: 12px;
+  --rdr-typo-size-m: 16px;
+  --rdr-typo-size-l: 20px;
+  --rdr-typo-size-xl: 24px;
+
+  --rdr-component-size-unit: 160px;
+  --rdr-component-size-s: 320px;
+  --rdr-component-size-m: 480px;
+  --rdr-component-size-l: 640px;
+
+  --rdr-color-white: rgb(220,220,220, 1);
+  --rdr-color-bg: rgba(20,20,20,0.75);
+
+  font-family: var(--rdr-typography);
+}
+
+#root {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.rdr {
+  display: block;
+  margin: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
