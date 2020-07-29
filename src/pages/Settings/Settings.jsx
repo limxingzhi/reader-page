@@ -4,7 +4,9 @@ import { readLS, writeLS, customRssParser, defaultRssConfig } from '../../utils/
 
 import './Settings.css';
 
-const updateFeedInfoHandler = () => {
+const updateFeedInfoHandler = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
   const feedInfoString = document.getElementById('rss-config').value;
 
   try {
@@ -14,7 +16,7 @@ const updateFeedInfoHandler = () => {
     console.error('Invalid JSOn format');
   }
 
-  customRssParser(JSON.parse(feedInfoString), 0)
+  customRssParser(JSON.parse(feedInfoString))
     .then(() => {
       writeLS('feedInfo', JSON.parse(feedInfoString));
       window.alert('Config saved')

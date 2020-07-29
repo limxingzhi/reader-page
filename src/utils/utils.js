@@ -63,14 +63,22 @@ export const customRssParser = async (endpointArray, limit = 100) => {
 }
 
 export const writeLS = (key, inputObj) => {
-  window.localStorage.setItem(`rssReader${key}`, JSON.stringify(inputObj));
+  window.localStorage.setItem(`rssReader:${key}`, JSON.stringify(inputObj));
 }
 
 export const readLS = (key) => {
-  return JSON.parse(window.localStorage.getItem(`rssReader${key}`));
+  return JSON.parse(window.localStorage.getItem(`rssReader:${key}`));
 }
 
 // functional immutable version of array sorting
 export const immutableSort = (arrayInput, sortFunction) => {
   return [...arrayInput].sort(sortFunction);
 }
+
+export const UUID = () => {
+  // Public Domain/MIT
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c === 'x' ? r : ((r & 0x3) | 0x8);
+    return v.toString(16);
+  });
+};
