@@ -1,46 +1,42 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { KeyboardArrowUp as UpIcon } from '@material-ui/icons';
 import { Fab as FloatingButton, useScrollTrigger, Zoom, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { readLS, writeLS, customRssParser, defaultRssConfig } from '../../utils/utils';
+import { readLS, writeLS, customRssParser, defaultRssConfig, UUID } from '../../utils/utils';
+import Loader from '../../components/Loader/Loader';
 
 import './Feed.css';
 
-const Item = React.lazy(() => import('../../components/Item/Item'));
+const Item = lazy(() => import('../../components/Item/Item'));
 
 const FeedContent = () => {
   if (!readLS('feedInfo')) {
     writeLS('feedInfo', defaultRssConfig);
   }
-
   const [feedList, setFeedList] = useState([]);
-  customRssParser(readLS('feedInfo')).then(response => {
-    setFeedList(response.map(item => {
-      return (<Grid item xl={3} lg={4} md={6} xs={12}>
-        <Item
-          link={item.link}
-          title={item.title}
-          feedTitle={item.feedTitle}
-          pubDate={item.prettyDate}
-          content={item.content}
-        ></Item>
-      </Grid>);
-    }));
-  });
-  return (<>{feedList}</>);
-};
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: 'fixed',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-}));
+  useEffect(() => {
+    async function fetchData () {
+      const response = await customRssParser(readLS('feedInfo'))
+      await setFeedList(response);
+    }
+    fetchData();
+  });
+
+  return (<>{feedList.map(item => (<Grid item xl={3} lg={4} md={6} xs={12} key={UUID()}>
+      <Item
+        link={item.link}
+        title={item.title}
+        feedTitle={item.feedTitle}
+        pubDate={item.prettyDate}
+        content={item.content}
+      ></Item>
+    </Grid>)
+  )}</>);
+};
 
 const ScrollTop = (props) => {
   const { children, window } = props;
-  const classes = useStyles();
   // Note that you normally won't need to set the window ref as useScrollTrigger
   // will default to window.
   // This is only being set here because the demo is in an iframe.
@@ -60,7 +56,11 @@ const ScrollTop = (props) => {
 
   return (
     <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation" className={classes.root}>
+      <div onClick={handleClick} role="presentation" style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+      }}>
         {children}
       </div>
     </Zoom>
@@ -70,13 +70,17 @@ const ScrollTop = (props) => {
 export default () => (<Grid container>
   <div className="rdr-feed">
     <div id="rdr-feed-up-btn">
-      <ScrollTop>
+      <ScrollTop style={{
+          position: 'fixed',
+          bottom: '10px',
+          right: '10px',
+      }}>
         <FloatingButton aria-label="scroll back to top">
           <UpIcon />
         </FloatingButton>
       </ScrollTop>
     </div>
-    <Suspense fallback={<span>Loading...</span>}>
+    <Suspense fallback={Loader()}>
       <div className="rdr-feed-wrapper">
           <FeedContent></FeedContent>
       </div>

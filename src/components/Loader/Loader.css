@@ -1,0 +1,90 @@
+:root {
+  --rdr-loader-size: 100px;
+  --rdr-loader-color: black;
+
+  --rdr-loader-grid-gap: 3.25;
+  --rdr-loader-speed: 1.2s;
+  --rdr-loader-steps: 10;
+}
+
+.rdr-loader-grid {
+  display: block;
+  position: absolute;
+  width: var(--rdr-loader-size);
+  height: var(--rdr-loader-size);
+
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+
+  --rdr-loader-speed-5: calc(var(--rdr-loader-speed) / var(--rdr-loader-steps) * -1);
+  --rdr-loader-speed-4: calc(var(--rdr-loader-speed) / var(--rdr-loader-steps) * -2);
+  --rdr-loader-speed-3: calc(var(--rdr-loader-speed) / var(--rdr-loader-steps) * -3);
+  --rdr-loader-speed-2: calc(var(--rdr-loader-speed) / var(--rdr-loader-steps) * -4);
+  --rdr-loader-speed-1: calc(var(--rdr-loader-speed) / var(--rdr-loader-steps) * -5);
+}
+.rdr-loader-grid div {
+  position: absolute;
+  width: calc(var(--rdr-loader-size) / var(--rdr-loader-grid-gap));
+  height: calc(var(--rdr-loader-size) / var(--rdr-loader-grid-gap));
+  background: var(--rdr-loader-color);
+  animation: lds-grid var(--rdr-loader-speed) ease-in-out infinite;
+}
+.rdr-loader-grid div:nth-child(1) {
+  top: calc(var(--rdr-loader-size) / 10);
+  left: calc(var(--rdr-loader-size) / 10);
+  animation-delay: var(--rdr-loader-speed-1);
+}
+.rdr-loader-grid div:nth-child(2) {
+  top: calc(var(--rdr-loader-size) / 10);
+  left: calc(var(--rdr-loader-size) / 2.5);
+  animation-delay: var(--rdr-loader-speed-2);
+}
+.rdr-loader-grid div:nth-child(3) {
+  top: calc(var(--rdr-loader-size) / 10);
+  left: calc(var(--rdr-loader-size) / calc(80 / 56));
+  animation-delay: var(--rdr-loader-speed-3);
+}
+.rdr-loader-grid div:nth-child(4) {
+  top: calc(var(--rdr-loader-size) / calc(2.5));
+  left: calc(var(--rdr-loader-size) / 10);
+  animation-delay: var(--rdr-loader-speed-2);
+}
+.rdr-loader-grid div:nth-child(5) {
+  top: calc(var(--rdr-loader-size) / 2.5);
+  left: calc(var(--rdr-loader-size) / 2.5);
+  animation-delay: var(--rdr-loader-speed-3);
+}
+.rdr-loader-grid div:nth-child(6) {
+  top: calc(var(--rdr-loader-size) / 2.5);
+  left: calc(var(--rdr-loader-size) / calc(80 / 56));
+  animation-delay: var(--rdr-loader-speed-4);
+}
+.rdr-loader-grid div:nth-child(7) {
+  top: calc(var(--rdr-loader-size) / calc(80 / 56));
+  left: calc(var(--rdr-loader-size) / 10);
+  animation-delay: var(--rdr-loader-speed-3);
+}
+.rdr-loader-grid div:nth-child(8) {
+  top: calc(var(--rdr-loader-size) / calc(80 / 56));
+  left: calc(var(--rdr-loader-size) / 2.5);
+  animation-delay: var(--rdr-loader-speed-4);
+}
+.rdr-loader-grid div:nth-child(9) {
+  top: calc(var(--rdr-loader-size) / calc(80 / 56));
+  left: calc(var(--rdr-loader-size) / calc(80 / 56));
+  animation-delay: var(--rdr-loader-speed-5);
+}
+@keyframes lds-grid {
+  0%, 10%, 90%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.25);
+    opacity: 0;
+  }
+}
