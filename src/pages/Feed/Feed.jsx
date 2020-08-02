@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { KeyboardArrowUp as UpIcon } from '@material-ui/icons';
 import { Fab as FloatingButton, useScrollTrigger, Zoom, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { readLS, writeLS, customRssParser, defaultRssConfig, UUID } from '../../utils/utils';
 import Loader from '../../components/Loader/Loader';
 
@@ -23,15 +22,15 @@ const FeedContent = () => {
     fetchData();
   });
 
-  return (<>{feedList.map(item => (<Grid item xl={3} lg={4} md={6} xs={12} key={UUID()}>
-      <Item
-        link={item.link}
-        title={item.title}
-        feedTitle={item.feedTitle}
-        pubDate={item.prettyDate}
-        content={item.content}
-      ></Item>
-    </Grid>)
+  return (<>{feedList.map(item => (<span className="rdr-feed-list-item">
+    <Item
+      link={item.link}
+      title={item.title}
+      feedTitle={item.feedTitle}
+      pubDate={item.prettyDate}
+      content={item.content}
+    ></Item>
+   </span>)
   )}</>);
 };
 
@@ -68,22 +67,28 @@ const ScrollTop = (props) => {
 }
 
 export default () => (<Grid container>
-  <div className="rdr-feed">
-    <div id="rdr-feed-up-btn">
-      <ScrollTop style={{
+    <Grid item key={UUID()} xl={2} md={0}><div></div></Grid>
+    <Grid
+      item
+      key={UUID()}
+      xl={8} md={12}
+    >
+      <Suspense fallback={Loader()}>
+        <div className="rdr-feed-wrapper">
+          <FeedContent></FeedContent>
+        </div>
+      </Suspense>
+      <div id="rdr-feed-up-btn">
+        <ScrollTop style={{
           position: 'fixed',
           bottom: '10px',
           right: '10px',
-      }}>
-        <FloatingButton aria-label="scroll back to top">
-          <UpIcon />
-        </FloatingButton>
-      </ScrollTop>
-    </div>
-    <Suspense fallback={Loader()}>
-      <div className="rdr-feed-wrapper">
-          <FeedContent></FeedContent>
+        }}>
+          <FloatingButton aria-label="scroll back to top">
+            <UpIcon />
+          </FloatingButton>
+        </ScrollTop>
       </div>
-    </Suspense>
-  </div>
+    </Grid>
+    <Grid item key={UUID()} xl={2} md={0}><div></div></Grid>
 </Grid>);

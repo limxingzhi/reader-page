@@ -4,9 +4,13 @@
   margin: 0;
 }
 
+.rdr-feed-list-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
 .rdr-feed-wrapper {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 
   min-height: 100%;
   height: fit-content;

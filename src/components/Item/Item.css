@@ -1,11 +1,7 @@
-.rdr-item-card {
+.rdr-item {
   height: fit-content;
   margin: var(--rdr-spacing-l);
   z-index: 2;
-}
-
-.rdr-item-card:hover {
-  box-shadow: 0px 10px 10px 10px rgba(0,0,0,0.25);
 }
 
 .rdr-item-content-wrapper {
@@ -13,6 +9,16 @@
   flex-direction: column;
   justify-content: flex-end;
   height: auto;
+}
+
+.rdr-item-title {
+  font-size: var(--rdr-typo-size-l);
+}
+
+
+.rdr-item-sub-title {
+  font-size: var(--rdr-typo-size-m);
+  font-weight: lighter;
 }
 
 .rdr-item-link {
@@ -28,7 +34,7 @@
 }
 
 .rdr-item-date {
-  font-weight: thin;
+  font-weight: light;
   font-style: italic;
   font-size: var(--rdr-typo-size-xs);
 }
