@@ -1,6 +1,8 @@
 import Parser from 'rss-parser';
 import { formatRelative } from 'date-fns';
 
+const TAG = 'rssReader';
+
 const appendReverseProxy = (urlInput) => {
   return `https://xingzhi.dev/corsanywhere/${urlInput}`;
 }
@@ -20,9 +22,11 @@ export const defaultRssConfig = [
   }
 ];
 
-export const customRssParser = async (endpointArray, limit = 100) => {
+export const customRssParser = async (endpointArray, limit = 250) => {
   const promiseArray = [];
   const parser = new Parser();
+
+  window.localStorage.setItem(`${TAG}:rssAccessedTime`, JSON.stringify({'timestamp': Date.now()}));
 
   endpointArray.map(({ name, url }) => {
     promiseArray.push(
@@ -63,11 +67,11 @@ export const customRssParser = async (endpointArray, limit = 100) => {
 }
 
 export const writeLS = (key, inputObj) => {
-  window.localStorage.setItem(`rssReader:${key}`, JSON.stringify(inputObj));
+  window.localStorage.setItem(`${TAG}:${key}`, JSON.stringify(inputObj));
 }
 
 export const readLS = (key) => {
-  return JSON.parse(window.localStorage.getItem(`rssReader:${key}`));
+  return JSON.parse(window.localStorage.getItem(`${TAG}:${key}`));
 }
 
 // functional immutable version of array sorting

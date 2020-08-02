@@ -3,7 +3,6 @@ import React from "react";
 import './Item.css';
 
 export default (props) => {
-  console.log('bleh')
   const {title, feedTitle, pubDate, content, link} = props;
   return (
     <div className="rdr-item">

@@ -20,9 +20,9 @@ const FeedContent = () => {
       await setFeedList(response);
     }
     fetchData();
-  });
+  }, []);
 
-  return (<>{feedList.map(item => (<span className="rdr-feed-list-item">
+  return (<>{feedList.map(item => (<span className="rdr-feed-list-item" key={UUID()}>
     <Item
       link={item.link}
       title={item.title}
@@ -67,11 +67,11 @@ const ScrollTop = (props) => {
 }
 
 export default () => (<Grid container>
-    <Grid item key={UUID()} xl={2} md={0}><div></div></Grid>
+    <Grid item key={UUID()} lg={2}><div></div></Grid>
     <Grid
       item
       key={UUID()}
-      xl={8} md={12}
+      lg={8} sm={12}
     >
       <Suspense fallback={Loader()}>
         <div className="rdr-feed-wrapper">
@@ -90,5 +90,5 @@ export default () => (<Grid container>
         </ScrollTop>
       </div>
     </Grid>
-    <Grid item key={UUID()} xl={2} md={0}><div></div></Grid>
+    <Grid item key={UUID()} lg={2}><div></div></Grid>
 </Grid>);
